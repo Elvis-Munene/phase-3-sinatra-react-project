@@ -1,12 +1,15 @@
 class Restaurant < ActiveRecord::Base;
+# include Sluggable
 has_many :reviews
 
-    def slugify
+before_create:slugify
+def slugify
     self.slug = name.parameterize
-    end
+end
 
-    # def avg_score
-    # reviews.average(:score).round(2).to_f
-    # end
+    def avg_score
+    reviews.average(:score).round(2).to_f
+    end
+    
 
 end
