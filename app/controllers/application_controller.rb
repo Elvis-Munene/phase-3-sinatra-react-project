@@ -21,15 +21,29 @@ class ApplicationController < Sinatra::Base
     
   end
 
+  post '/restaurants/:id' do
+    restaurant = Restaurant.create(
+      name: params[:name],
+      image_url: params[:image_url]
+
+    )
+    restaurant.to_json
+  end
+  patch '/restaurants/:id' do
+    restaurant = Restaurant.find(params[:id])
+    restaurant.update(
+      name: params[:name],
+      image_url: params[:image_url]
+    )
+    restaurant.to_json
+  end
+
   get "/reviews" do
     reviews = Review.all
     reviews.to_json
   
   end
   
- 
-
-
   post '/reviews' do
     review = Review.create(
       title: params[:title],
@@ -48,8 +62,4 @@ class ApplicationController < Sinatra::Base
     )
     review.to_json
   end
-   
-
-
-
 end
