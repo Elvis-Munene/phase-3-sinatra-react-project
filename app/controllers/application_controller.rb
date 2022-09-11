@@ -13,7 +13,42 @@ class ApplicationController < Sinatra::Base
     restaurant.to_json(include: :reviews)
   
   end
+
+  delete "/restaurants/:id" do
+    restaurant = Restaurant.find(params[:id])
+    restaurant.destroy 
+    restaurant.to_json
+    
+  end
+
+  get "/reviews" do
+    reviews = Review.all
+    reviews.to_json
   
+  end
+  
+ 
+
+
+  post '/reviews' do
+    review = Review.create(
+      title: params[:title],
+      description:params[:description],
+      score: params[:score]
+    )
+    review.to_json
+  end
+  
+  patch '/reviews/:id' do
+    review = Review.find(params[:id])
+    review.update(
+      title: params[:title],
+      score: params[:score],
+      description: params[:description]
+    )
+    review.to_json
+  end
+   
 
 
 
